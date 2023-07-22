@@ -5,7 +5,7 @@ namespace GroceryManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class SigninController : ControllerBase
+    public class CreateAccountController : ControllerBase
     {
     }
 }
