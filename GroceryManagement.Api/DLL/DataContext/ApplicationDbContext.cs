@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DLL.EntityModel;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -14,5 +15,7 @@ namespace DLL.DataContext
         {
 
         }
+
+        public DbSet<Login> Login { get; set; }
     }
 }
