@@ -1,3 +1,5 @@
+using BLL;
+using DLL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +34,9 @@ namespace Grocery_Management.Api
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Grocery_Management.Api", Version = "v1" });
             });
+
+            DllDependency.AllDependency(services, Configuration);
+            BLLDependency.AllDependency(services, Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
