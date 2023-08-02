@@ -20,5 +20,8 @@ namespace DLL.EntityModel
 
         [Required]
         public string Password { get; set; }
+
+        public ICollection<Login> Logins { get; set; }
+
     }
 }
