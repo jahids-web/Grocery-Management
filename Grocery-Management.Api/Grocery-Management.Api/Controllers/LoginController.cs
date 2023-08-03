@@ -17,7 +17,7 @@ namespace Grocery_Management.Api.Controllers
             _loginService = loginService;
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Insert(LoginViewModel request)
+        //[HttpPost]
+        //public async Task<IActionResult> Insert(LoginViewModel request)
     }
 }
