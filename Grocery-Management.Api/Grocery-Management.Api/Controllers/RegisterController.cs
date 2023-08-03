@@ -3,9 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Grocery_Management.Api.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class RegisterController : ControllerBase
+   
+    public class RegisterController : MainController
     {
     }
 }
