@@ -1,4 +1,5 @@
 ﻿using BLL.ViewModel;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BLL.Services
 {
-    public interface IRegisterService
+    internal interface IRegisterService
     {
         Task<Register> InsertAsync(RegisterViewModel viewModel);
     }
@@ -15,7 +16,7 @@ namespace BLL.Services
     public class RegisterService : IRegisterService
     {
         private readonly IUnitOfWork _unitOfWork;
-        public RegisterService(IUnitOfWork unitOfWork) 
+        public RegisterService(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }

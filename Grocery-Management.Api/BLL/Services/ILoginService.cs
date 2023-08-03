@@ -1,11 +1,15 @@
 ﻿using BLL.ViewModel;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace BLL.Services
 {
     public interface ILoginService
     {
+         
         Task<Login> InsertAsync(LoginViewModel request);
         Task<List<Login>> GetAllAsync();
     }
@@ -13,9 +17,9 @@ namespace BLL.Services
     public class LoginService : ILoginService
     {
         private readonly IUnitOfWork _unitOfWork;
-       
 
-        public LoginService(IUnitOfWork _unitOfWork) 
+
+        public LoginService(IUnitOfWork _unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
