@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Utility.Exceptions;
 
 namespace BLL.Services
 {
@@ -31,29 +32,85 @@ namespace BLL.Services
             _unitOfWork = unitOfWork;
         }
 
-        public Task<Login> InsertAsync(LoginViewModel request)
+        public async Task<Login> InsertAsync(LoginViewModel request)
         {
-            throw new NotImplementedException();
+            Login aLogin = new Login();
+            aLogin.UserId = request.UserId;
+            aLogin.UserName = request.UserName;
+            aLogin.Password = request.Password;
+
+            try
+            {
+                await _unitOfWork.LoginRepository.CreateAsync(aLogin);
+                if (await _unitOfWork.SavaChangesAsync())
+                {
+                    return aLogin;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationValidationException("Insert Has Some Problem" + e);
+            }
+            return aLogin;
         }
 
-        public Task<Login> GetAAsync(int userId)
+        public async Task<Login> GetAAsync(int userId)
         {
-            throw new NotImplementedException();
+            var login = await _unitOfWork.LoginRepository.FindSingLeAsync(x => x.UserId == userId);
+            if (login == null)
+            {
+                throw new ApplicationValidationException("login Not Found");
+            }
+            return login;
         }
 
-        public Task<List<Login>> GetAllAsync()
+        public async Task<List<Login>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _unitOfWork.LoginRepository.GetList();
         }
 
-        public Task<Login> UpdateAsync(int userId, LoginViewModel request)
+        public async Task<Login> UpdateAsync(int userId, LoginViewModel request)
         {
-            throw new NotImplementedException();
+            var register = await _unitOfWork.RegisterRepository.FindSingLeAsync(x => x.UserId == userId);
+            var login = await _unitOfWork.LoginRepository.FindSingLeAsync(x => x.UserId == userId);
+
+            if (login == null)
+            {
+                throw new ApplicationValidationException("Register Not Found");
+            }
+            if (!string.IsNullOrWhiteSpace(request.UserName))
+            {
+                request.UserName = request.UserName;
+            }
+            if (!string.IsNullOrWhiteSpace(request.Password))
+            {
+                request.Password = request.Password;
+            }
+     
+            _unitOfWork.LoginRepository.Update(login);
+            if (await _unitOfWork.SavaChangesAsync())
+            {
+                return login;
+            }
+
+            throw new ApplicationValidationException("In Update Have Some Problam");
         }
 
-        public Task<Login> DeleteAsync(int userId)
+        public async Task<Login> DeleteAsync(int userId)
         {
-            throw new NotImplementedException();
+            var login = await _unitOfWork.LoginRepository.FindSingLeAsync(x => x.UserId == userId);
+
+            if (login == null)
+            {
+                throw new ApplicationValidationException("Register Not Found");
+            }
+            _unitOfWork.LoginRepository.Delete(login);
+
+            if (await _unitOfWork.SavaChangesAsync())
+            {
+                return login;
+            }
+            throw new ApplicationValidationException("Some Problem for delete data");
         }
 
     }
