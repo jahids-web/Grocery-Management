@@ -18,6 +18,6 @@ namespace DLL.EntityModel
         [Required]
         public string Password { get; set; }
 
-        public Register Register { get; set; }
+        
     }
 }
